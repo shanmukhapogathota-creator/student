@@ -10,16 +10,18 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Deploy Website') {
             steps {
-                bat 'docker build -t student-registration .'
+                bat '''
+                if not exist C:\\inetpub\\wwwroot mkdir C:\\inetpub\\wwwroot
+                copy /Y student_registration.html C:\\inetpub\\wwwroot\\index.html
+                '''
             }
         }
 
-        stage('Run Container') {
+        stage('Verify') {
             steps {
-                bat 'docker rm -f student-container || exit 0'
-                bat 'docker run -d --name student-container -p 80:80 student-registration'
+                bat 'curl http://localhost:80'
             }
         }
     }
