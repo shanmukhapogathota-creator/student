@@ -10,29 +10,16 @@ pipeline {
             }
         }
 
-        stage('Check Files') {
+        stage('Build Docker Image') {
             steps {
-                bat 'dir'
+                bat 'docker build -t student-app .'
             }
         }
 
-        stage('Deploy Student Website') {
+        stage('Run Container') {
             steps {
-                bat '''
-                if not exist C:\\inetpub\\wwwroot\\student mkdir C:\\inetpub\\wwwroot\\student
-
-                del /Q C:\\inetpub\\wwwroot\\student\\*.*
-
-                copy /Y index.html C:\\inetpub\\wwwroot\\student\\index.html
-
-                dir C:\\inetpub\\wwwroot\\student
-                '''
-            }
-        }
-
-        stage('Verify Website') {
-            steps {
-                bat 'curl http://localhost/student'
+                bat 'docker rm -f student-container || exit 0'
+                bat 'docker run -d --name student-container -p 8081:80 student-app'
             }
         }
     }
