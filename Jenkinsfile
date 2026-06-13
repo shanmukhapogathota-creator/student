@@ -19,15 +19,15 @@ pipeline {
         stage('Deploy Website') {
             steps {
                 bat '''
-                if not exist C:\\inetpub\\wwwroot mkdir C:\\inetpub\\wwwroot
+                del /Q C:\\inetpub\\wwwroot\\*
                 copy /Y index.html C:\\inetpub\\wwwroot\\index.html
                 '''
             }
         }
 
-        stage('Verify Website') {
+        stage('Verify') {
             steps {
-                bat 'curl http://localhost:80'
+                bat 'curl http://localhost'
             }
         }
     }
