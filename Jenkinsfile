@@ -16,18 +16,19 @@ pipeline {
             }
         }
 
-        stage('Deploy Website') {
+        stage('Deploy Student Website') {
             steps {
                 bat '''
-                if not exist C:\\inetpub\\wwwroot mkdir C:\\inetpub\\wwwroot
-                copy /Y index.html C:\\inetpub\\wwwroot\\index.html
+                if not exist C:\\inetpub\\wwwroot\\student mkdir C:\\inetpub\\wwwroot\\student
+
+                copy /Y index.html C:\\inetpub\\wwwroot\\student\\index.html
                 '''
             }
         }
 
         stage('Verify Website') {
             steps {
-                bat 'curl http://localhost:80'
+                bat 'curl http://localhost/student'
             }
         }
     }
