@@ -21,7 +21,7 @@ pipeline {
 
         stage('Verify') {
             steps {
-                bat 'curl http://localhost'
+                bat 'curl http://localhost:80'
             }
         }
     }
