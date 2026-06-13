@@ -10,6 +10,12 @@ pipeline {
             }
         }
 
+        stage('Check Files') {
+            steps {
+                bat 'dir'
+            }
+        }
+
         stage('Deploy Website') {
             steps {
                 bat '''
@@ -19,7 +25,7 @@ pipeline {
             }
         }
 
-        stage('Verify') {
+        stage('Verify Website') {
             steps {
                 bat 'curl http://localhost:80'
             }
