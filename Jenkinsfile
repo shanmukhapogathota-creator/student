@@ -21,7 +21,11 @@ pipeline {
                 bat '''
                 if not exist C:\\inetpub\\wwwroot\\student mkdir C:\\inetpub\\wwwroot\\student
 
+                del /Q C:\\inetpub\\wwwroot\\student\\*.*
+
                 copy /Y index.html C:\\inetpub\\wwwroot\\student\\index.html
+
+                dir C:\\inetpub\\wwwroot\\student
                 '''
             }
         }
